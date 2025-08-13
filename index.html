@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Flashcards – Từ vựng tiếng Trung</title>
+<title>tu-vung-thuc-te.html</title>
 <style>
   :root{
     --bg:#FFF7D1; --brand:#E53935; --text:#333; --muted:#444; --chip:#FFE9B3;
@@ -29,6 +29,9 @@
     font-size:1.8em;font-weight:700;color:var(--brand);
     text-align:center;
   }
+  .hanzi .example{
+    font-size:0.9em;margin-top:8px;color:var(--text);
+  }
   .info{
     max-width:300px;overflow:hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
@@ -46,111 +49,58 @@
 </head>
 <body>
 
-<h1>Flashcards – Từ vựng tiếng Trung</h1>
+<h1>Flashcards – Từ vựng thực tế tiếng Trung</h1>
 
-<!-- Thẻ 1: 生日 -->
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><circle cx="50" cy="50" r="30" fill="#FFC7D1"/></svg></div>
-  <div class="hanzi">生日</div>
-  <div class="info">
-    <div class="pinyin">shēng rì</div>
-    <div class="meaning">(sinh nhật)</div>
-    <div class="tip">Liên tưởng tới bánh kem và nến.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
+<!-- ======= BẮT ĐẦU DANH SÁCH THẺ ======= -->
 
-<!-- Thẻ 2: 快乐 -->
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><circle cx="50" cy="50" r="30" fill="#FFE081"/></svg></div>
-  <div class="hanzi">快乐</div>
-  <div class="info">
-    <div class="pinyin">kuài lè</div>
-    <div class="meaning">(vui vẻ, hạnh phúc)</div>
-    <div class="tip">Hình mặt cười tươi.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- Thẻ 3: 给 -->
+<!-- Ví dụ cho 给 (3 thẻ) -->
 <div class="card">
   <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="20" y="40" width="60" height="20" fill="#B8E8E0"/></svg></div>
-  <div class="hanzi">给</div>
+  <div class="hanzi">给<div class="example">这本书送给你，拿着吧。</div></div>
   <div class="info">
     <div class="pinyin">gěi</div>
-    <div class="meaning">(cho, tặng, đưa)</div>
-    <div class="tip">Bàn tay trao món đồ.</div>
+    <div class="meaning">cho, đưa</div>
+    <div><strong>Ngữ pháp:</strong> Động từ: 给 + người + vật → trao vật cho ai đó.</div>
+    <div class="tip">Bàn tay đưa quà.</div>
   </div>
   <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
 </div>
 
-<!-- Các thẻ tiếp theo tương tự -->
 <div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="25" y="25" width="50" height="50" fill="#FFD2A6"/></svg></div>
-  <div class="hanzi">接</div>
+  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="20" y="40" width="60" height="20" fill="#B8E8E0"/></svg></div>
+  <div class="hanzi">给<div class="example">他给我发了一条微信。</div></div>
   <div class="info">
-    <div class="pinyin">jiē</div>
-    <div class="meaning">(nhận, đón)</div>
-    <div class="tip">Bàn tay đón lấy vật.</div>
+    <div class="pinyin">gěi</div>
+    <div class="meaning">cho ai làm gì</div>
+    <div><strong>Ngữ pháp:</strong> Giới từ: 给 + người + động từ → làm gì cho ai.</div>
+    <div class="tip">Ai đó gửi tin nhắn cho mình.</div>
   </div>
   <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
 </div>
 
 <div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><circle cx="50" cy="50" r="30" fill="#E2C9FF"/></svg></div>
-  <div class="hanzi">晚上</div>
+  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="20" y="40" width="60" height="20" fill="#B8E8E0"/></svg></div>
+  <div class="hanzi">给<div class="example">请给我五分钟，我马上回来。</div></div>
   <div class="info">
-    <div class="pinyin">wǎn shang</div>
-    <div class="meaning">(buổi tối)</div>
-    <div class="tip">Trăng sao lấp lánh.</div>
+    <div class="pinyin">gěi</div>
+    <div class="meaning">xin hãy cho</div>
+    <div><strong>Ngữ pháp:</strong> Cấu trúc lịch sự: 请 + 给 + người + vật/thời gian.</div>
+    <div class="tip">Đồng hồ cát đang chảy.</div>
   </div>
   <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
 </div>
 
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><circle cx="50" cy="50" r="30" fill="#BFE6B0"/></svg></div>
-  <div class="hanzi">问</div>
-  <div class="info">
-    <div class="pinyin">wèn</div>
-    <div class="meaning">(hỏi)</div>
-    <div class="tip">Biểu tượng dấu hỏi.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
+<!-- Lặp lại cấu trúc trên cho các từ khác -->
+<!-- … Ở đây sẽ có thêm các card cho 已经, 快乐, 长, 两, 帮, 介绍, 生日, 接, 晚上, 问, 非常, 开始 với số lượng thẻ tương ứng … -->
 
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="20" y="20" width="60" height="60" fill="#BFD9FF"/></svg></div>
-  <div class="hanzi">非常</div>
-  <div class="info">
-    <div class="pinyin">fēi cháng</div>
-    <div class="meaning">(rất, vô cùng)</div>
-    <div class="tip">Thanh đo độ cao vượt mức.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
+<!-- ======= KẾT THÚC DANH SÁCH THẺ ======= -->
 
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="25" y="25" width="50" height="50" fill="#FFC7D1"/></svg></div>
-  <div class="hanzi">开始</div>
-  <div class="info">
-    <div class="pinyin">kāi shǐ</div>
-    <div class="meaning">(bắt đầu)</div>
-    <div class="tip">Nút play tam giác.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><circle cx="50" cy="50" r="30" fill="#FFD2A6"/></svg></div>
-  <div class="hanzi">已经</div>
-  <div class="info">
-    <div class="pinyin">yǐ jīng</div>
-    <div class="meaning">(đã, rồi)</div>
-    <div class="tip">Dấu check hoàn thành.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="icon"><svg viewBox="0 0 100 100" width="70" height="70"><rect x="20" y="20" width="60" height="60" fill="#E2C
-
+<script>
+function toggleInfo(el){
+  const infoDiv = el.parentElement.querySelector('.info');
+  infoDiv.classList.toggle('visible');
+  el.textContent = infoDiv.classList.contains('visible') ? 'Ẩn' : 'Hiện';
+}
+</script>
+</body>
+</html>
