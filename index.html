@@ -4,419 +4,108 @@
 <meta charset="UTF-8">
 <title>tu-vung-thuc-te.html</title>
 <style>
-  :root{
-    --bg:#FFF7D1; --brand:#E53935; --text:#333; --muted:#444; --chip:#FFE9B3;
-  }
-  body{
-    font-family:'Segoe UI','Noto Sans SC',sans-serif;
-    background:var(--bg);color:var(--text);
-    max-width:900px;margin:auto;padding:24px;
-  }
-  h1{text-align:center;color:var(--brand);}
-  .card{
-    border:2px solid var(--brand);
-    border-radius:14px;
-    background:#fff;
-    padding:14px 14px 12px 14px;
-    margin:18px 0;
-  }
-  .hanzi{
-    font-size:1.8em;font-weight:700;color:var(--brand);
-    text-align:center;
-  }
-  .example{
-    font-size:1.05em;margin-top:8px;color:var(--text);
-    text-align:center;
-  }
-  .info{
-    overflow:hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    max-height:0;opacity:0;padding:0;margin:0;
-  }
-  .info.visible{
-    max-height:900px;opacity:1;padding:8px 0 0 0;
-  }
-  .info .pinyin{font-size:1.05em;color:var(--muted);margin:8px 0 6px;}
-  .info .meaning{margin-bottom:8px;}
-  .info .explain, .info .grammar{margin-bottom:8px;}
-  .tip{
-    background:var(--chip);padding:6px 8px;
-    border-radius:8px;font-size:0.92em;
-  }
-  .toggle-btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 18px;
-    background:var(--brand);
-    color:#fff;
-    border-radius:8px;
-    font-size:1.05em;
-    cursor:pointer;
-    user-select:none;
-  }
+  body{font-family:'Segoe UI','Noto Sans SC',sans-serif;background:#FFF7D1;color:#333;max-width:900px;margin:auto;padding:24px;}
+  h1{text-align:center;color:#E53935;}
+  .card{border:2px solid #E53935;border-radius:14px;background:#fff;padding:14px;margin:18px 0;}
+  .hanzi{font-size:1.8em;font-weight:700;color:#E53935;text-align:center;}
+  .example{text-align:center;margin-top:8px;}
+  .info{overflow:hidden;transition:max-height 0.3s ease,opacity 0.3s ease;max-height:0;opacity:0;}
+  .info.visible{max-height:800px;opacity:1;padding-top:6px;}
+  .pinyin{color:#444;margin-bottom:6px;}
+  .tip{background:#FFE9B3;padding:6px;border-radius:8px;}
+  .toggle-btn,.speak-btn{display:inline-block;margin-top:8px;padding:8px 14px;border-radius:6px;font-size:1em;cursor:pointer;user-select:none;}
+  .toggle-btn{background:#E53935;color:#fff;}
+  .speak-btn{background:#4CAF50;color:#fff;margin-left:6px;}
+  #randomBtn{display:block;margin:20px auto;padding:10px 20px;background:#2196F3;color:#fff;border:none;border-radius:6px;font-size:1.1em;cursor:pointer;}
+  #quiz{border:2px dashed #E53935;padding:12px;margin-top:20px;display:none;}
 </style>
 </head>
 <body>
 
 <h1>Flashcards – Từ vựng thực tế tiếng Trung</h1>
+<button id="randomBtn">Học ngẫu nhiên</button>
 
-<!-- ======= 给 (3 thẻ) ======= -->
+<div id="cards">
+
 <div class="card">
   <div class="hanzi">给</div>
   <div class="example">这本书送给你，拿着吧。</div>
   <div class="info">
     <div class="pinyin">gěi</div>
     <div class="meaning">cho, đưa</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 送给你 = “tặng cho bạn”: 送 là động từ chính; 给 là giới từ đặt trước tân ngữ “你” để chỉ người nhận. 这本书 là tân ngữ của 送. 拿着吧: 拿 + 着 (trạng thái kéo dài) + 吧 (ngữ khí gợi ý).</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 动词 + 给 + 人 + 物 → tặng/trao vật cho ai.</div>
-    <div class="tip">Hình dung bạn đưa sách, đối phương đón lấy.</div>
+    <div><strong>Giải thích ví dụ:</strong> 送给你: 给 là giới từ chỉ người nhận...</div>
+    <div class="tip">Hình dung bạn đưa sách cho người khác.</div>
   </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
+  <div>
+    <span class="toggle-btn" onclick="toggleInfo(this)">Hiện</span>
+    <span class="speak-btn" onclick="speakText('这本书送给你，拿着吧。')">🔊</span>
+  </div>
 </div>
 
-<div class="card">
-  <div class="hanzi">给</div>
-  <div class="example">他给我发了一条微信。</div>
-  <div class="info">
-    <div class="pinyin">gěi</div>
-    <div class="meaning">cho ai làm gì (giới từ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 发了一条微信: 发 là động từ; 了 chỉ hoàn thành; 一条 là lượng từ; 给我 đứng trước động từ, chỉ đối tượng thụ hưởng hành động (gửi cho tôi).</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 给 + 人 + 动词 (+ 了/过…) → làm gì cho ai.</div>
-    <div class="tip">Nghĩ tới thông báo WeChat “ding”.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">给</div>
-  <div class="example">请给我五分钟，我马上回来。</div>
-  <div class="info">
-    <div class="pinyin">gěi</div>
-    <div class="meaning">xin hãy cho</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 请 + 给 + 我 + 五分钟: 请 làm mềm lời yêu cầu; 给 + người + danh từ (thời gian). 马上 = ngay lập tức.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 请 + 给 + 人 + 名词(时间/东西) → yêu cầu lịch sự.</div>
-    <div class="tip">Tưởng tượng chiếc đồng hồ đếm lùi 5 phút.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 已经 (2 thẻ) ======= -->
 <div class="card">
   <div class="hanzi">已经</div>
   <div class="example">我已经吃过了。</div>
   <div class="info">
-    <div class="pinyin">yǐjīng</div>
-    <div class="meaning">đã, rồi (trạng từ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 已经 đặt trước động từ “吃过”; 过 chỉ từng làm; 了 nhấn mạnh kết quả hiện tại (xong rồi). Câu rất tự nhiên khi từ chối lời mời ăn.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 已经 + 动词(+过) + 了 → hành động đã xảy ra, hoàn tất trước thời điểm nói.</div>
-    <div class="tip">Đèn “DONE” sáng xanh trong đầu bạn.</div>
+    <div class="pinyin">yǐ jīng</div>
+    <div class="meaning">đã, rồi</div>
+    <div><strong>Giải thích ví dụ:</strong> 已经 + 动词 + 了: hành động đã hoàn tất...</div>
+    <div class="tip">Đèn “DONE” sáng xanh.</div>
   </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
+  <div>
+    <span class="toggle-btn" onclick="toggleInfo(this)">Hiện</span>
+    <span class="speak-btn" onclick="speakText('我已经吃过了。')">🔊</span>
+  </div>
 </div>
 
-<div class="card">
-  <div class="hanzi">已经</div>
-  <div class="example">我已经不在上海了。</div>
-  <div class="info">
-    <div class="pinyin">yǐjīng</div>
-    <div class="meaning">đã… không… nữa (biểu thị thay đổi)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 已经 + 不…了: khuôn thức biểu thị trạng thái đã thay đổi; “不在上海了” = giờ không còn ở Thượng Hải nữa.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 已经 + 不/没 + 谓语 + 了 → không còn… nữa.</div>
-    <div class="tip">Hình cây ghim bản đồ được rút ra.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
+<!-- Thêm các thẻ khác ở đây -->
+
 </div>
 
-<!-- ======= 快乐 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">快乐</div>
-  <div class="example">祝你生日快乐！</div>
-  <div class="info">
-    <div class="pinyin">kuàilè</div>
-    <div class="meaning">vui vẻ, hạnh phúc (tính từ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 祝 + 人 + 名词(节日/事件) + 快乐: cấu trúc lời chúc thường gặp; 生日快乐 là công thức cố định.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 祝 + 你/大家 + … + 快乐/顺利/健康。</div>
-    <div class="tip">Nghe bài “生日快乐歌” trong đầu bạn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">快乐</div>
-  <div class="example">最近我真的很快乐。</div>
-  <div class="info">
-    <div class="pinyin">kuàilè</div>
-    <div class="meaning">vui vẻ (mô tả trạng thái)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 很 + 快乐: 很 là phó từ mức độ đi trước tính từ; 最近 đặt đầu câu chỉ thời gian gần đây.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> (时间) + 主语 + 很/非常 + 形容词。</div>
-    <div class="tip">Thang đo cảm xúc nhảy lên vùng xanh lá.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 长 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">长</div>
-  <div class="example">这条路太长了。</div>
-  <div class="info">
-    <div class="pinyin">cháng</div>
-    <div class="meaning">dài (tính từ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 太 + 形容词 + 了 nhấn mạnh mức độ “quá … rồi”. 这条路: 条 là lượng từ cho đường.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 主语 + 太 + 形容词 + 了 → mức độ quá cao.</div>
-    <div class="tip">Đường kéo dài đến tận chân trời trong tưởng tượng bạn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">长</div>
-  <div class="example">他长得挺高的。</div>
-  <div class="info">
-    <div class="pinyin">zhǎng</div>
-    <div class="meaning">trông, lớn lên; “长得 + adj” (miêu tả ngoại hình)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 长得 + 形容词: khuôn thức miêu tả ngoại hình; 挺…的 = khá… (khẩu ngữ).</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 主语 + 长得 + 形容词/短语。</div>
-    <div class="tip">Tưởng tượng thước đo chiều cao nhích lên từng nấc.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 两 (1 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">两</div>
-  <div class="example">我买了两本书。</div>
-  <div class="info">
-    <div class="pinyin">liǎng</div>
-    <div class="meaning">hai (dùng trước lượng từ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 两 + 本 + 书: 两 dùng trước lượng từ 本 (cho sách). 了 sau 买 chỉ hành động hoàn thành.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 两 + 量词 + 名词 (không dùng 二 trước lượng từ).</div>
-    <div class="tip">Hai cuốn sách chồng lên nhau trong đầu bạn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 帮 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">帮</div>
-  <div class="example">你能帮我看看吗？</div>
-  <div class="info">
-    <div class="pinyin">bāng</div>
-    <div class="meaning">giúp, giúp đỡ</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 能…吗 hỏi khả năng/nhờ vả; 帮我看看 = giúp tôi xem qua (看 + 看 lặp lại làm nhẹ yêu cầu).</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 帮 + 人 + 动词(一下/看看/…)</div>
-    <div class="tip">Xin giúp “nhìn hộ” — phép lịch sự nhẹ nhàng, dễ nhận lời hơn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">帮</div>
-  <div class="example">谢谢你帮我搬家。</div>
-  <div class="info">
-    <div class="pinyin">bāng</div>
-    <div class="meaning">giúp (đã xảy ra)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 谢谢你 + 动词短语: cảm ơn vì đã…; 帮我搬家 = giúp tôi chuyển nhà (động từ kép). Không cần 了 vì hành động đã hoàn tất được ngầm hiểu qua ngữ cảnh.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 谢谢 + 人 + 动词短语。</div>
-    <div class="tip">Hình thùng carton được bê đi — cảm giác áy náy mà biết ơn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 介绍 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">介绍</div>
-  <div class="example">我来简单介绍一下自己。</div>
-  <div class="info">
-    <div class="pinyin">jièshào</div>
-    <div class="meaning">giới thiệu</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 我来… biểu thị “để tôi …”; 简单 làm trạng ngữ “đơn giản”; 介绍一下: 一下 làm mềm yêu cầu/độ dài hành động.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 主语 + 来 + 副词 + 动词 + 一下 + 宾语。</div>
-    <div class="tip">Một slide giới thiệu bản thân hiện lên trong đầu bạn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">介绍</div>
-  <div class="example">我给你介绍一个朋友。</div>
-  <div class="info">
-    <div class="pinyin">jièshào</div>
-    <div class="meaning">giới thiệu (ai cho ai)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 给你介绍…: 给 + 人 làm giới từ chỉ người nhận; 一个朋友 là tân ngữ của 介绍.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 给 + 人 + 介绍 + 人/事物。</div>
-    <div class="tip">Hai người bắt tay qua lời giới thiệu của bạn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 生日 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">生日</div>
-  <div class="example">今天是我的生日。</div>
-  <div class="info">
-    <div class="pinyin">shēngrì</div>
-    <div class="meaning">sinh nhật</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 是 câu phán đoán: 今天 (thời gian) + 是 + 我的生日 (chủ ngữ logic).</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> (时间) + 是 + 名词短语。</div>
-    <div class="tip">Bánh kem và nến bật sáng giữa dòng thời gian hôm nay.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">生日</div>
-  <div class="example">我的生日在六月二十号。</div>
-  <div class="info">
-    <div class="pinyin">shēngrì</div>
-    <div class="meaning">ngày sinh nhật (thời điểm)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 在 + 时间 biểu thị “vào (thời điểm)”; 六月二十号: tháng 6 ngày 20.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 名词 + 在 + 时间。</div>
-    <div class="tip">Ghim một chấm đỏ vào lịch tháng 6, ngày 20.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 接 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">接</div>
-  <div class="example">我下班去机场接她。</div>
-  <div class="info">
-    <div class="pinyin">jiē</div>
-    <div class="meaning">đón (người)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 下班 (sau khi tan làm) làm trạng ngữ thời gian; 去机场 (đi sân bay) trạng ngữ nơi chốn; 接她 là vị ngữ chính.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> (时间/地点) + 去/来 + 地点 + 接 + 人。</div>
-    <div class="tip">Bảng “Arrivals” hiện ra, bạn vẫy tay đón người thân.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">接</div>
-  <div class="example">不好意思，我在开会，待会儿再接你电话。</div>
-  <div class="info">
-    <div class="pinyin">jiē</div>
-    <div class="meaning">bắt máy, nhận (cuộc gọi)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 在开会 = đang họp; 待会儿再… = lát nữa sẽ…; 接你电话 = nhận cuộc gọi của bạn (khẩu ngữ tự nhiên).</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 先…，待会儿再 + 动词。</div>
-    <div class="tip">Chuông rung nhưng bạn đưa ngón tay ra ra hiệu “chờ chút”.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 晚上 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">晚上</div>
-  <div class="example">晚上一起吃个饭吧。</div>
-  <div class="info">
-    <div class="pinyin">wǎnshang</div>
-    <div class="meaning">buổi tối</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 晚上 đặt đầu câu làm trạng ngữ thời gian; 吃个饭: 个 làm nhẹ; 吧 gợi ý rủ rê.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> (时间) + 主语(可省略) + 一起 + 动词 + (吧)。</div>
-    <div class="tip">Ánh đèn phố lên, bạn hẹn bạn bè đi ăn nhẹ nhàng tự nhiên.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">晚上</div>
-  <div class="example">昨天晚上我加班到很晚。</div>
-  <div class="info">
-    <div class="pinyin">wǎnshang</div>
-    <div class="meaning">tối (khung thời gian quá khứ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 昨天晚上 (tối hôm qua) làm trạng ngữ; 加班到很晚 = làm thêm đến muộn; 到 chỉ mốc kết thúc.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> (时间) + 主语 + 动词 + 到 + 时间/程度。</div>
-    <div class="tip">Màn hình máy tính xanh lạnh giữa đêm muộn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 问 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">问</div>
-  <div class="example">他问我一个问题。</div>
-  <div class="info">
-    <div class="pinyin">wèn</div>
-    <div class="meaning">hỏi</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 问 + 人 + 一个问题: 人 là tân ngữ gián tiếp; 一个问题 là tân ngữ trực tiếp. Trật tự thường: hỏi ai cái gì.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 问 + 人 + 事/问题/路。</div>
-    <div class="tip">Dấu hỏi bật lên trên đầu nhân vật hoạt hình trong tưởng tượng bạn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">问</div>
-  <div class="example">请问，洗手间在哪儿？</div>
-  <div class="info">
-    <div class="pinyin">wèn</div>
-    <div class="meaning">xin hỏi (lịch sự)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 请问 đứng đầu câu để mở lời lịch sự; 洗手间在哪儿? câu hỏi vị trí với 在 + 哪儿.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 请问，…？ (mẫu câu hỏi lịch sự nơi công cộng).</div>
-    <div class="tip">Bạn mở lời nhẹ nhàng trước khi hỏi đường/toilet.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 非常 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">非常</div>
-  <div class="example">我非常喜欢这部剧。</div>
-  <div class="info">
-    <div class="pinyin">fēicháng</div>
-    <div class="meaning">rất, vô cùng (mạnh hơn 很)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 非常 đặt trước động từ cảm xúc “喜欢”; 这部剧: 部 là lượng từ cho phim/bộ.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 主语 + 非常 + 形容词/心理动词。</div>
-    <div class="tip">Bạn “mê mẩn” một bộ phim — độ thích vượt mức bình thường (非=phi, 常=thường).</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">非常</div>
-  <div class="example">今天风非常大，别出门了。</div>
-  <div class="info">
-    <div class="pinyin">fēicháng</div>
-    <div class="meaning">rất (nhấn mạnh tính chất/mức độ)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 风非常大: danh từ + 形容词 (to/lớn/mạnh); 别…了: khuyên can “đừng … nữa”.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 名词 + 非常 + 形容词；别 + 动词 + 了 (khuyên can).</div>
-    <div class="tip">Gió rít ngoài cửa sổ, bạn kéo rèm lại — cảm giác rõ ràng “rất to”.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<!-- ======= 开始 (2 thẻ) ======= -->
-<div class="card">
-  <div class="hanzi">开始</div>
-  <div class="example">我们八点开始上课。</div>
-  <div class="info">
-    <div class="pinyin">kāishǐ</div>
-    <div class="meaning">bắt đầu (làm gì)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 时间 + 开始 + 动作: 8 giờ bắt đầu học; 上课 là cụm động từ “lên lớp”.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> (时间) + 主语 + 开始 + 动词短语。</div>
-    <div class="tip">Chuông reo đúng 8:00 — tiết học mở màn.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
-</div>
-
-<div class="card">
-  <div class="hanzi">开始</div>
-  <div class="example">会议已经开始了，快进来。</div>
-  <div class="info">
-    <div class="pinyin">kāishǐ</div>
-    <div class="meaning">đã bắt đầu (trạng thái đã diễn ra)</div>
-    <div class="explain"><strong>Giải thích ví dụ:</strong> 已经 + 开始 + 了: nhấn mạnh sự kiện đã bắt đầu; 快进来: thúc giục.</div>
-    <div class="grammar"><strong>Ngữ pháp tổng quát:</strong> 已经 + 动词 + 了 → hành động đã xảy ra/đang trong trạng thái sau hành động.</div>
-    <div class="tip">Cửa phòng họp hé mở, bạn lách vào “đến muộn tí”.</div>
-  </div>
-  <div class="toggle-btn" onclick="toggleInfo(this)">Hiện</div>
+<div id="quiz">
+  <p><strong>Câu hỏi:</strong> Từ nào nghĩa là "giúp đỡ"?</p>
+  <button onclick="checkAnswer(this,'帮')">帮</button>
+  <button onclick="checkAnswer(this,'给')">给</button>
+  <button onclick="checkAnswer(this,'问')">问</button>
 </div>
 
 <script>
 function toggleInfo(el){
-  const infoDiv = el.parentElement.querySelector('.info');
+  const infoDiv = el.closest('.card').querySelector('.info');
   infoDiv.classList.toggle('visible');
   el.textContent = infoDiv.classList.contains('visible') ? 'Ẩn' : 'Hiện';
 }
+
+function speakText(text){
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'zh-CN';
+  speechSynthesis.speak(utterance);
+}
+
+document.getElementById('randomBtn').addEventListener('click',()=>{
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(c=>c.style.display='none');
+  const randomCard = cards[Math.floor(Math.random()*cards.length)];
+  randomCard.style.display='block';
+});
+
+let learnedCount = 0;
+function checkAnswer(btn,correct){
+  if(btn.textContent===correct){
+    alert('Đúng rồi!');
+  } else {
+    alert('Sai, đáp án đúng là: '+correct);
+  }
+}
+
+document.querySelectorAll('.toggle-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    learnedCount++;
+    if(learnedCount % 5 === 0){
+      document.getElementById('quiz').style.display='block';
+    }
+  });
+});
 </script>
+
 </body>
 </html>
