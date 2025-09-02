@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chuyển đổi tiếng Trung sang HTML tương tác</title>
+  <title>Chuyển đổi từ tiếng Trung sang HTML tương tác</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -63,8 +63,8 @@
 </head>
 <body>
 
-  <h2>📘 Dán nội dung tiếng Trung + pinyin vào đây</h2>
-  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là tiếng Trung, dòng 2 là pinyin tương ứng.</p>
+  <h2>📘 Dán từ tiếng Trung + pinyin vào đây</h2>
+  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là từ tiếng Trung (ghép), dòng 2 là pinyin tương ứng.</p>
 
   <textarea id="input" placeholder="Dán nội dung vào đây..."></textarea>
   <button onclick="convert()">Chuyển đổi</button>
@@ -101,26 +101,11 @@
       for (let i = 0; i < lines.length; i += 2) {
         const chinese = lines[i] || '';
         const pinyin = lines[i + 1] || '';
-        const chineseWords = chinese.split('');
-        const pinyinWords = pinyin.split(/\s+/);
 
         let html = '<p>';
-        let pIndex = 0;
-
-        for (let j = 0; j < chineseWords.length; j++) {
-          const char = chineseWords[j];
-          if (char.trim() === '') {
-            html += char;
-          } else if (char.match(/[\u4e00-\u9fff]/)) {
-            const py = pinyinWords[pIndex] || '';
-            html += `<span class="word" onclick="showPinyin(this)" data-pinyin="${py}">${char}</span>`;
-            pIndex++;
-          } else {
-            html += char;
-          }
-        }
-
+        html += `<span class="word" onclick="showPinyin(this)" data-pinyin="${pinyin}">${chinese}</span>`;
         html += '</p>';
+
         output.innerHTML += html;
       }
     }
