@@ -64,7 +64,7 @@
 <body>
 
   <h2>📘 Dán từ tiếng Trung + pinyin vào đây</h2>
-  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là từ tiếng Trung (ghép), dòng 2 là pinyin tương ứng.</p>
+  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là từ tiếng Trung (ghép), dòng 2 là pinyin tương ứng, cách nhau bằng dấu cách.</p>
 
   <textarea id="input" placeholder="Dán nội dung vào đây..."></textarea>
   <button onclick="convert()">Chuyển đổi</button>
@@ -99,13 +99,19 @@
       output.innerHTML = '';
 
       for (let i = 0; i < lines.length; i += 2) {
-        const chinese = lines[i] || '';
-        const pinyin = lines[i + 1] || '';
+        const chineseLine = lines[i] || '';
+        const pinyinLine = lines[i + 1] || '';
+
+        const chineseWords = chineseLine.split(/\s+/);
+        const pinyinWords = pinyinLine.split(/\s+/);
 
         let html = '<p>';
-        html += `<span class="word" onclick="showPinyin(this)" data-pinyin="${pinyin}">${chinese}</span>`;
+        for (let j = 0; j < chineseWords.length; j++) {
+          const word = chineseWords[j];
+          const pinyin = pinyinWords[j] || '';
+          html += `<span class="word" onclick="showPinyin(this)" data-pinyin="${pinyin}">${word}</span> `;
+        }
         html += '</p>';
-
         output.innerHTML += html;
       }
     }
