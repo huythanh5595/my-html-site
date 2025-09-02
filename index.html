@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chuyển đổi từ tiếng Trung sang HTML tương tác</title>
+  <title>Hiển thị pinyin toàn câu</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,26 +29,30 @@
       line-height: 2;
       word-wrap: break-word;
     }
-    .word {
+    .sentence {
       position: relative;
       cursor: pointer;
-      padding: 2px 4px;
+      padding: 4px;
       border-radius: 4px;
       display: inline-block;
+      max-width: 100%;
+      overflow-wrap: break-word;
     }
-    .word:hover {
+    .sentence:hover {
       background-color: #f0f0f0;
     }
     .pinyin {
       position: absolute;
-      top: -20px;
+      bottom: 100%;
       left: 0;
       background-color: #ffeeba;
-      padding: 2px 6px;
+      padding: 4px 8px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 14px;
       display: none;
-      white-space: nowrap;
+      white-space: normal;
+      max-width: 100%;
+      box-sizing: border-box;
       z-index: 10;
     }
     @media (max-width: 600px) {
@@ -63,8 +67,8 @@
 </head>
 <body>
 
-  <h2>📘 Dán từ tiếng Trung + pinyin vào đây</h2>
-  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là từ tiếng Trung (ghép), dòng 2 là pinyin tương ứng, cách nhau bằng dấu cách.</p>
+  <h2>📘 Dán câu tiếng Trung + pinyin vào đây</h2>
+  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là câu tiếng Trung, dòng 2 là pinyin tương ứng.</p>
 
   <textarea id="input" placeholder="Dán nội dung vào đây..."></textarea>
   <button onclick="convert()">Chuyển đổi</button>
@@ -76,20 +80,20 @@
     function showPinyin(el) {
       let existing = el.querySelector('.pinyin');
       if (existing) {
-        existing.style.display = 'inline-block';
+        existing.style.display = 'block';
       } else {
-        let pinyin = document.createElement('span');
+        let pinyin = document.createElement('div');
         pinyin.className = 'pinyin';
         pinyin.textContent = el.getAttribute('data-pinyin');
         el.appendChild(pinyin);
-        pinyin.style.display = 'inline-block';
+        pinyin.style.display = 'block';
       }
       setTimeout(() => {
-        const pinyinSpan = el.querySelector('.pinyin');
-        if (pinyinSpan) {
-          pinyinSpan.style.display = 'none';
+        const pinyinDiv = el.querySelector('.pinyin');
+        if (pinyinDiv) {
+          pinyinDiv.style.display = 'none';
         }
-      }, 2000);
+      }, 3000);
     }
 
     function convert() {
@@ -99,19 +103,13 @@
       output.innerHTML = '';
 
       for (let i = 0; i < lines.length; i += 2) {
-        const chineseLine = lines[i] || '';
-        const pinyinLine = lines[i + 1] || '';
-
-        const chineseWords = chineseLine.split(/\s+/);
-        const pinyinWords = pinyinLine.split(/\s+/);
+        const chinese = lines[i] || '';
+        const pinyin = lines[i + 1] || '';
 
         let html = '<p>';
-        for (let j = 0; j < chineseWords.length; j++) {
-          const word = chineseWords[j];
-          const pinyin = pinyinWords[j] || '';
-          html += `<span class="word" onclick="showPinyin(this)" data-pinyin="${pinyin}">${word}</span> `;
-        }
+        html += `<span class="sentence" onclick="showPinyin(this)" data-pinyin="${pinyin}">${chinese}</span>`;
         html += '</p>';
+
         output.innerHTML += html;
       }
     }
