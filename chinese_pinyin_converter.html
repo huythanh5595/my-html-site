@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Chuyển đổi tiếng Trung sang HTML tương tác</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .output {
+      margin-top: 30px;
+      line-height: 2;
+    }
+    .word {
+      position: relative;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .word:hover {
+      background-color: #f0f0f0;
+    }
+    .pinyin {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      background-color: #ffeeba;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: none;
+      white-space: nowrap;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📘 Dán nội dung tiếng Trung + pinyin vào đây</h2>
+  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là tiếng Trung, dòng 2 là pinyin tương ứng.</p>
+
+  <textarea id="input" placeholder="Dán nội dung vào đây..."></textarea>
+  <button onclick="convert()">Chuyển đổi</button>
+  <button onclick="clearContent()">🧹 Xóa nội dung</button>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    function showPinyin(el) {
+      let existing = el.querySelector('.pinyin');
+      if (existing) {
+        existing.style.display = 'inline-block';
+      } else {
+        let pinyin = document.createElement('span');
+        pinyin.className = 'pinyin';
+        pinyin.textContent = el.getAttribute('data-pinyin');
+        el.appendChild(pinyin);
+        pinyin.style.display = 'inline-block';
+      }
+      setTimeout(() => {
+        const pinyinSpan = el.querySelector('.pinyin');
+        if (pinyinSpan) {
+          pinyinSpan.style.display = 'none';
+        }
+      }, 2000);
+    }
+
+    function convert() {
+      const input = document.getElementById('input').value.trim();
+      const lines = input.split('
+');
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+
+      for (let i = 0; i < lines.length; i += 2) {
+        const chinese = lines[i] || '';
+        const pinyin = lines[i + 1] || '';
+        const chineseWords = chinese.split('');
+        const pinyinWords = pinyin.split(/[\s]+/);
+
+        let html = '<p>';
+        let pIndex = 0;
+
+        for (let j = 0; j < chineseWords.length; j++) {
+          const char = chineseWords[j];
+          if (char.trim() === '') {
+            html += char;
+          } else if (char.match(/[一-鿿]/)) {
+            const py = pinyinWords[pIndex] || '';
+            html += `<span class="word" onclick="showPinyin(this)" data-pinyin="${py}">${char}</span>`;
+            pIndex++;
+          } else {
+            html += char;
+          }
+        }
+
+        html += '</p>';
+        output.innerHTML += html;
+      }
+    }
+
+    function clearContent() {
+      document.getElementById('input').value = '';
+      document.getElementById('output').innerHTML = '';
+    }
+  </script>
+
+</body>
+</html>
