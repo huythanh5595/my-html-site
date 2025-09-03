@@ -1,61 +1,143 @@
-<script>
-  function showPinyin(el) {
-    let existing = el.querySelector('.pinyin');
-    if (existing) {
-      existing.style.display = 'block';
-    } else {
-      let pinyin = document.createElement('div');
-      pinyin.className = 'pinyin';
-      pinyin.textContent = el.getAttribute('data-pinyin');
-      el.appendChild(pinyin);
-      pinyin.style.display = 'block';
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiển thị pinyin toàn câu2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
     }
-    setTimeout(() => {
-      const pinyinDiv = el.querySelector('.pinyin');
-      if (pinyinDiv) {
-        pinyinDiv.style.display = 'none';
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .output {
+      margin-top: 20px;
+      line-height: 2;
+      word-wrap: break-word;
+    }
+    .sentence {
+      position: relative;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+    .sentence:hover {
+      background-color: #f0f0f0;
+    }
+    .pinyin {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      background-color: #ffeeba;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: none;
+      white-space: normal;
+      max-width: 100%;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+    @media (max-width: 600px) {
+      textarea {
+        height: 120px;
       }
-    }, 3000);
-  }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
 
-  function convert() {
-    const input = document.getElementById('input').value.trim();
-    const lines = input.split('\n');
-    const output = document.getElementById('output');
-    output.innerHTML = '';
+  <h2>📘 Dán câu tiếng Trung + pinyin vào đây</h2>
+  <p>Mỗi đoạn gồm 2 dòng: dòng 1 là câu tiếng Trung, dòng 2 là pinyin tương ứng.</p>
 
-    for (let i = 0; i < lines.length; i += 2) {
-      const chinese = lines[i] || '';
-      const pinyin = lines[i + 1] || '';
+  <textarea id="input" placeholder="Dán nội dung vào đây..."></textarea>
+  <button onclick="convert()">Chuyển đổi</button>
+  <button onclick="clearContent()">🧹 Xóa nội dung</button>
 
-      let html = '<p>';
-      html += `<span class="sentence" onclick="showPinyin(this)" data-pinyin="${pinyin}">${chinese}</span>`;
-      html += '</p>';
+  <div class="output" id="output"></div>
 
-      output.innerHTML += html;
+  <script>
+    function showPinyin(el) {
+      let existing = el.querySelector('.pinyin');
+      if (existing) {
+        existing.style.display = 'block';
+      } else {
+        let pinyin = document.createElement('div');
+        pinyin.className = 'pinyin';
+        pinyin.textContent = el.getAttribute('data-pinyin');
+        el.appendChild(pinyin);
+        pinyin.style.display = 'block';
+      }
+      setTimeout(() => {
+        const pinyinDiv = el.querySelector('.pinyin');
+        if (pinyinDiv) {
+          pinyinDiv.style.display = 'none';
+        }
+      }, 3000);
     }
 
-    // Lưu vào localStorage
-    localStorage.setItem('inputText', document.getElementById('input').value);
-    localStorage.setItem('outputHTML', output.innerHTML);
-  }
+    function convert() {
+      const input = document.getElementById('input').value.trim();
+      const lines = input.split('\n');
+      const output = document.getElementById('output');
+      output.innerHTML = '';
 
-  function clearContent() {
-    document.getElementById('input').value = '';
-    document.getElementById('output').innerHTML = '';
-    localStorage.removeItem('inputText');
-    localStorage.removeItem('outputHTML');
-  }
+      for (let i = 0; i < lines.length; i += 2) {
+        if (!lines[i]) continue; // bỏ qua nếu không có câu tiếng Trung
+        const chinese = lines[i];
+        const pinyin = lines[i + 1] || '';
 
-  // Khôi phục dữ liệu khi tải lại trang
-  window.onload = function() {
-    const savedInput = localStorage.getItem('inputText');
-    const savedOutput = localStorage.getItem('outputHTML');
-    if (savedInput) {
-      document.getElementById('input').value = savedInput;
+        let html = '<p>';
+        html += `<span class="sentence" onclick="showPinyin(this)" data-pinyin="${pinyin}">${chinese}</span>`;
+        html += '</p>';
+
+        output.innerHTML += html;
+      }
+
+      // Lưu vào localStorage
+      localStorage.setItem('inputText', document.getElementById('input').value);
+      localStorage.setItem('outputHTML', output.innerHTML);
     }
-    if (savedOutput) {
-      document.getElementById('output').innerHTML = savedOutput;
+
+    function clearContent() {
+      document.getElementById('input').value = '';
+      document.getElementById('output').innerHTML = '';
+      localStorage.removeItem('inputText');
+      localStorage.removeItem('outputHTML');
     }
-  }
-</script>
+
+    // Khôi phục dữ liệu khi tải lại trang
+    window.onload = function() {
+      const savedInput = localStorage.getItem('inputText');
+      const savedOutput = localStorage.getItem('outputHTML');
+      if (savedInput) {
+        document.getElementById('input').value = savedInput;
+      }
+      if (savedOutput) {
+        document.getElementById('output').innerHTML = savedOutput;
+      }
+    }
+  </script>
+
+</body>
+</html>
