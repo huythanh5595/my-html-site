@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hiển thị pinyin toàn câu2</title>
+  <title>Hiển thị pinyin toàn câu</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -103,8 +103,7 @@
       output.innerHTML = '';
 
       for (let i = 0; i < lines.length; i += 2) {
-        if (!lines[i]) continue; // bỏ qua nếu không có câu tiếng Trung
-        const chinese = lines[i];
+        const chinese = lines[i] || '';
         const pinyin = lines[i + 1] || '';
 
         let html = '<p>';
@@ -113,29 +112,11 @@
 
         output.innerHTML += html;
       }
-
-      // Lưu vào localStorage
-      localStorage.setItem('inputText', document.getElementById('input').value);
-      localStorage.setItem('outputHTML', output.innerHTML);
     }
 
     function clearContent() {
       document.getElementById('input').value = '';
       document.getElementById('output').innerHTML = '';
-      localStorage.removeItem('inputText');
-      localStorage.removeItem('outputHTML');
-    }
-
-    // Khôi phục dữ liệu khi tải lại trang
-    window.onload = function() {
-      const savedInput = localStorage.getItem('inputText');
-      const savedOutput = localStorage.getItem('outputHTML');
-      if (savedInput) {
-        document.getElementById('input').value = savedInput;
-      }
-      if (savedOutput) {
-        document.getElementById('output').innerHTML = savedOutput;
-      }
     }
   </script>
 
