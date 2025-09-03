@@ -33,30 +33,19 @@
       font-family: "SimSun", serif;
     }
     .sentence {
-      position: relative;
+      display: inline-block;
       cursor: pointer;
       padding: 4px;
       border-radius: 4px;
-      display: inline-block;
-      max-width: 100%;
-      overflow-wrap: break-word;
     }
     .sentence:hover {
       background-color: #f0f0f0;
     }
     .pinyin {
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      background-color: #ffeeba;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 14px;
       display: none;
-      white-space: normal;
-      max-width: 100%;
-      box-sizing: border-box;
-      z-index: 10;
+      font-size: 14px;
+      color: #555;
+      margin-left: 8px;
     }
     @media (max-width: 600px) {
       textarea {
@@ -81,22 +70,13 @@
 
   <script>
     function showPinyin(el) {
-      let existing = el.querySelector('.pinyin');
-      if (existing) {
-        existing.style.display = 'block';
-      } else {
-        let pinyin = document.createElement('div');
-        pinyin.className = 'pinyin';
-        pinyin.textContent = el.getAttribute('data-pinyin');
-        el.appendChild(pinyin);
-        pinyin.style.display = 'block';
-      }
-      setTimeout(() => {
-        const pinyinDiv = el.querySelector('.pinyin');
-        if (pinyinDiv) {
+      const pinyinDiv = el.querySelector('.pinyin');
+      if (pinyinDiv) {
+        pinyinDiv.style.display = 'inline';
+        setTimeout(() => {
           pinyinDiv.style.display = 'none';
-        }
-      }, 2000); // ⏱️ Hiển thị trong 2 giây
+        }, 2000); // ⏱ 2 giây
+      }
     }
 
     function convert() {
@@ -110,9 +90,12 @@
         const chinese = lines[i] || '';
         const pinyin = lines[i + 1] || '';
 
-        let html = '<p>';
-        html += `<span class="sentence" onclick="showPinyin(this)" data-pinyin="${pinyin}">${chinese}</span>`;
-        html += '</p>';
+        let html = `<p>
+          <span class="sentence" onclick="showPinyin(this)">
+            ${chinese}
+            <span class="pinyin">${pinyin}</span>
+          </span>
+        </p>`;
 
         output.innerHTML += html;
       }
