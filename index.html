@@ -96,12 +96,12 @@
         if (pinyinDiv) {
           pinyinDiv.style.display = 'none';
         }
-      }, 3000);
+      }, 2000); // ⏱️ Hiển thị trong 2 giây
     }
 
     function convert() {
       const input = document.getElementById('input').value.trim();
-      localStorage.setItem('savedContent', input); // ✅ Lưu nội dung
+      localStorage.setItem('savedContent', input);
       const lines = input.split('\n');
       const output = document.getElementById('output');
       output.innerHTML = '';
@@ -121,10 +121,9 @@
     function clearContent() {
       document.getElementById('input').value = '';
       document.getElementById('output').innerHTML = '';
-      localStorage.removeItem('savedContent'); // ✅ Xóa nội dung đã lưu
+      localStorage.removeItem('savedContent');
     }
 
-    // ✅ Tự động khôi phục khi tải lại trang
     window.onload = function() {
       const saved = localStorage.getItem('savedContent');
       if (saved) {
